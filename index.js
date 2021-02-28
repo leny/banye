@@ -40,22 +40,24 @@ module.exports = async (patterns, options = {}) => {
     const cwd = getPath(options.cwd || process.cwd());
     const pkg = require(getPath("package.json", findRoot(cwd)));
     const template = getPath(options.banner || "banner.ejs", cwd);
+    const LINE_BREAK = getLinebreak(options.lineBreak);
 
     const files = await globby(normalize(patterns), {cwd});
     return files.flat(Infinity).map((file) => {
-        const content = stripBom(readFileSync(getPath(file, cwd), "utf8"));
+        let content = stripBom(readFileSync(getPath(file, cwd), "utf8"));
         const relativeFilePath = resolve(cwd, file).replace(cwd, "");
         const banner = render(template, {pkg, date, file: relativeFilePath});
 
-        // TODO: handle options.check
-        // TODO: handle options.replace
+        if (options.check && content.startsWith(banner)) {
+            return;
+        }
 
-        writeFileSync(
-            getPath(file),
-            [banner, "", content].join(
-                getLinebreak(options.lineBreaks || options.lineBreak),
-            ),
-        );
+        if (options.replace) {
+            const lines = content.split(LINE_BREAK);
+            content = lines.slice(lines.indexOf("")+1).join(LINE_BREAK);
+        }
+
+        writeFileSync(getPath(file), [banner, "", content].join(LINE_BREAK));
 
         return file;
     });

@@ -21,7 +21,7 @@ cli.parse({
     ],
     replace: [
         "r",
-        "Replace the starting lines of the files (up to the first empty line) with the banner.",
+        "Replace the starting lines of the files (up to the first empty line) with the banner",
         "bool",
         false,
     ],

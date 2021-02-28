@@ -16,7 +16,7 @@ A simple banner might look something like:
 
 ```
 /*! <%= pkg.name %> | <%= pkg.version %>
- *  (c) <%= date.getFullYear() %> <%= pkg.license %>
+ *  (c) <%= date.getFullYear() %>
  */
 ```
 
@@ -55,11 +55,12 @@ The return value of `bannerize()` is a `Promise` that resolves with an array of 
 
 ### Options
 
-- `banner`
-  A banner file location. Defaults to `banner.ejs` in the `cwd`.
+- `banner` A banner file location. Defaults to `banner.ejs` in the `cwd`.
 
-- `cwd`
-  Override the `cwd` for all paths passed to `bannerize`. Relative paths will be relative to `process.cwd()`. Defaults to `process.cwd()`.
+- `cwd` Override the `cwd` for all paths passed to `bannerize`. Relative paths will be relative to `process.cwd()`. Defaults to `process.cwd()`.
   
-- `lineBreak` (or `lineBreaks`)
-  Sets the linebreak (`'CRLF'`, `'LF'`). Defaults to `'LF'`.
+- `lineBreak` Sets the linebreak (`'CRLF'`, `'LF'`). Defaults to `'LF'`.
+
+- `replace` Replace the starting lines of the files (up to the first empty line) with the banner
+
+- `check` Check if header already exists in good format before add or replace
