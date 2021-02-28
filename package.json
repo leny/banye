@@ -1,0 +1,24 @@
+{
+  "name": "@leny/banye",
+  "version": "0.0.1",
+  "description": "Add dynamic header comments to files - cleaned/updated version of misteroneill/bannerize",
+  "main": "index.js",
+  "bin": "cli.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leny/banye.git"
+  },
+  "keywords": ["banner",
+    "comment",
+    "license",
+    "build",
+    "prepend"
+  ],
+  "author": "leny <info@flatland.be>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leny/banye/issues"
+  },
+  "homepage": "https://github.com/leny/banye#readme"
+}
