@@ -54,7 +54,9 @@ module.exports = async (patterns, options = {}) => {
 
         if (options.replace) {
             const lines = content.split(LINE_BREAK);
-            content = lines.slice(lines.indexOf("")+1).join(LINE_BREAK);
+            if (lines[0].startsWith("/")){
+                content = lines.slice(lines.indexOf("")+1).join(LINE_BREAK);
+            }
         }
 
         writeFileSync(getPath(file), [banner, "", content].join(LINE_BREAK));
