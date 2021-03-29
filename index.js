@@ -45,7 +45,7 @@ module.exports = async (patterns, options = {}) => {
     const files = await globby(normalize(patterns), {cwd});
     return files.flat(Infinity).map((file) => {
         let content = stripBom(readFileSync(getPath(file, cwd), "utf8"));
-        const relativeFilePath = resolve(cwd, file).replace(cwd, "");
+        const relativeFilePath = resolve(cwd, file).replace(cwd, "").replace(/\\/gi, "/");
         const banner = render(template, {pkg, date, file: relativeFilePath});
 
         if (options.check && content.startsWith(banner)) {
