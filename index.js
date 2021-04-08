@@ -59,7 +59,6 @@ module.exports = async (patterns, options = {}) => {
         }
 
         if (options.replace) {
-            const lines = content.split(LINE_BREAK);
             if (lines[0].startsWith("/")){
                 content = lines.slice(lines.indexOf("")+1).join(LINE_BREAK);
             }
