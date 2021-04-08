@@ -1,6 +1,6 @@
 {
   "name": "@leny/banye",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Add dynamic header comments to files - cleaned/updated version of misteroneill/bannerize",
   "main": "index.js",
   "bin": "cli.js",
