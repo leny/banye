@@ -34,8 +34,6 @@ const getLinebreak = (linebreak = "") =>
     linebreak.toLowerCase() === "crlf" ? "\r\n" : "\n";
 
 module.exports = async (patterns, options = {}) => {
-    console.log({patterns, options});
-
     const date = new Date();
     const cwd = getPath(options.cwd || process.cwd());
     const pkg = require(getPath("package.json", findRoot(cwd)));
@@ -54,7 +52,7 @@ module.exports = async (patterns, options = {}) => {
             shebang = lines.shift();
         }
 
-        if (options.check && content.startsWith(banner)) {
+        if (options.check && lines.join(LINE_BREAK).startsWith(banner)) {
             return;
         }
 
