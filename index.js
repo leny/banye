@@ -47,6 +47,12 @@ module.exports = async (patterns, options = {}) => {
         let content = stripBom(readFileSync(getPath(file, cwd), "utf8"));
         const relativeFilePath = resolve(cwd, file).replace(cwd, "").replace(/\\/gi, "/");
         const banner = render(template, {pkg, date, file: relativeFilePath});
+        let lines = content.split(LINE_BREAK);
+        let shebang = false;
+
+        if (lines[0].startsWith("#!")) {
+            shebang = lines.shift();
+        }
 
         if (options.check && content.startsWith(banner)) {
             return;
@@ -59,7 +65,11 @@ module.exports = async (patterns, options = {}) => {
             }
         }
 
-        writeFileSync(getPath(file), [banner, "", content].join(LINE_BREAK));
+        const results = [banner, "", ...lines];
+
+        shebang && results.unshift(shebang);
+
+        writeFileSync(getPath(file), results.join(LINE_BREAK));
 
         return file;
     });
