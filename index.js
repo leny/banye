@@ -30,15 +30,12 @@ const render = (template, context) => {
 const getPath = (filename, cwd = process.cwd()) =>
     isAbsolute(filename) ? filename : join(cwd, filename);
 
-const getLinebreak = (linebreak = "") =>
-    linebreak.toLowerCase() === "crlf" ? "\r\n" : "\n";
-
 module.exports = async (patterns, options = {}) => {
     const date = new Date();
     const cwd = getPath(options.cwd || process.cwd());
     const pkg = require(getPath("package.json", findRoot(cwd)));
     const template = getPath(options.banner || "banner.ejs", cwd);
-    const LINE_BREAK = getLinebreak(options.lineBreak);
+    const LINE_BREAK = require("os").EOL;
 
     const files = await globby(normalize(patterns), {cwd});
     return files.flat(Infinity).map((file) => {
